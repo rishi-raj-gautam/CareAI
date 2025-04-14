@@ -128,7 +128,7 @@ const navigate = useNavigate();
                   type='button'
                   onClick={()=>{
                     console.log(patient.patient.id)
-                    navigate('/patients', { state: { patientId: patient.patient.id } });
+                    navigate(`/patients/${patient.patient.id}`);
                   }}
                   className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-3 py-1 transition-colors">
                     View Details

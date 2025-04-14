@@ -3,12 +3,13 @@ import Navbar_pat from "./Navbar_pat";
 import Pat_dashboard from "./Pat_dashboard";
 import PatEdit from "./PatEdit";
 import Pat_history from "./Pat_history";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PatUI = () => {
-  const location = useLocation(); 
+   
   const [activeTab, setActiveTab] = useState("dashboard");
-  const { patientId } = location.state || {}; // fallback for undefined
+  const { patientId } = useParams(); // fallback for undefined
+  
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":

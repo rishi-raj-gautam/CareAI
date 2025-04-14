@@ -17,7 +17,7 @@ function App() {
         <div className="app-container">
           <Routes>
           <Route path="/" element={<DocUI />} />
-          <Route path="/patients" element={<PatUI/>} />
+          <Route path="/patients/:patientId" element={<PatUI/>} />
             
           </Routes>
         </div>
