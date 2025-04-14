@@ -7,7 +7,7 @@ function Navbar_pat() {
         <div className="bg-blue-600 text-white p-2 rounded-lg shadow-md">
           <i className="fa-solid fa-hospital fa-lg"></i>
         </div>
-        <span className="ml-3 font-bold text-xl text-blue-900"><Link to="/">MediCare</Link></span>
+        <span className="ml-3 font-bold text-xl text-blue-900"><Link to="/">SmartDoc</Link></span>
       </div>
       
       <div className='flex items-center gap-4'>

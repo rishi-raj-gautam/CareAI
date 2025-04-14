@@ -8,7 +8,7 @@ function Navbar_doc({ setActiveSection, activeSection }) {
           <div className='bg-white bg-opacity-20 rounded-lg p-2 mr-2'>
             <i className="fa-solid fa-stethoscope text-white text-xl"></i>
           </div>
-          <span className='text-white font-bold text-xl'><Link to="/">MediCare</Link></span>
+          <span className='text-white font-bold text-xl'><Link to="/">SmartDoc</Link></span>
         </div>
         
         <div className='hidden md:flex items-center space-x-6'>
