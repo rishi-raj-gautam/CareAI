@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -12,7 +12,7 @@ function App() {
   
 
   return (
-    <BrowserRouter>
+    <HashRouter>
     
         <div className="app-container">
           <Routes>
@@ -22,7 +22,7 @@ function App() {
           </Routes>
         </div>
   
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
