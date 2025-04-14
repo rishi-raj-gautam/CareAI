@@ -1,70 +1,137 @@
 import React from 'react';
+import patientsData from '../assets/dummyData';
+
 
 function Appointment() {
-  const patientData = [
-    {
-      name: "John Smith",
-      age: 45,
-      status: "Stable",
-    },
-    {
-      name: "John Doe",
-      age: 45,
-      status: "Monitoring Required",
-    },
-    {
-      name: "Jane Smith",
-      age: 45,
-      status: "Needs Follow-Up",
-    },
-  ];
+
+  // const patientData = [
+  //   {
+  //     name: "John Smith",
+  //     age: 45,
+  //     status: "Stable",
+  //   },
+  //   {
+  //     name: "John Doe",
+  //     age: 45,
+  //     status: "Monitoring Required",
+  //   },
+  //   {
+  //     name: "Jane Smith",
+  //     age: 45,
+  //     status: "Needs Follow-Up",
+  //   },
+  // ];
+  const totalPatients = patientsData.length;
 
   return (
-    <div className="patient h-screen bg-white w-full p-4">
-      <h1 className="text-center text-xl font-bold mb-4">Patients</h1>
-      <div className="patient-section h-auto sm:h-5/6 p-4 sm:p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Appointment Count Section */}
-          <div className="apointment-count col-span-1 sm:col-span-2 flex bg-green-300 justify-evenly items-center rounded-lg p-4">
-            <div className="text-center">
-              <div className="bg-white rounded-full h-20 w-20 sm:h-24 sm:w-24 shadow-md p-4"></div>
-              <span>Total</span>
-            </div>
-            <div className="text-center">
-              <div className="bg-white rounded-full h-20 w-20 sm:h-24 sm:w-24 shadow-md p-4"></div>
-              <span>Attended</span>
-            </div>
-            <div className="text-center">
-              <div className="bg-white rounded-full h-20 w-20 sm:h-24 sm:w-24 shadow-md p-4"></div>
-              <span>Remaining</span>
-            </div>
-          </div>
-
-          {/* Current Patient Section */}
-          <div className="current-patient p-4 bg-slate-800 rounded-lg flex flex-col justify-evenly text-white mt-4 sm:mt-0">
-            <h3 className="font-bold text-center">Current Patient</h3>
-            <div className="flex flex-col items-center sm:items-start">
-              <span>Name: </span>
-              <span>Age: </span>
-              <span>Status: </span>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button className="bg-green-300 px-4 py-2 rounded-md text-white">Checked</button>
+    <div className="h-full w-full p-6">
+      <h1 className="font-bold text-2xl text-gray-800 mb-6 flex items-center">
+        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
+          <i className="fa-solid fa-calendar-check text-blue-600"></i>
+        </div>
+        Appointments
+      </h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Appointment Stats Section */}
+        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="border border-gray-100 rounded-xl p-5">
+            <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
+              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-2">
+                <i className="fa-solid fa-chart-simple text-green-600"></i>
+              </div>
+              Today's Summary
+            </h3>
+            <div className="flex justify-between items-center gap-4">
+              <div className="flex-1 bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
+                <div className="w-16 h-16 bg-white rounded-full shadow-md mx-auto mb-2 flex items-center justify-center">
+                  <span className="text-blue-600 text-xl font-bold">{totalPatients}</span>
+                </div>
+                <p className="text-blue-800 font-medium">Total</p>
+              </div>
+              <div className="flex-1 bg-green-50 rounded-xl p-4 text-center border border-green-100">
+                <div className="w-16 h-16 bg-white rounded-full shadow-md mx-auto mb-2 flex items-center justify-center">
+                  <span className="text-green-600 text-xl font-bold">8</span>
+                </div>
+                <p className="text-green-800 font-medium">Attended</p>
+              </div>
+              <div className="flex-1 bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
+                <div className="w-16 h-16 bg-white rounded-full shadow-md mx-auto mb-2 flex items-center justify-center">
+                  <span className="text-amber-600 text-xl font-bold">4</span>
+                </div>
+                <p className="text-amber-800 font-medium">Remaining</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Next Appointments Section */}
-        <h1 className="text-center text-xl font-bold mt-8 mb-4">Next Appointments</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {patientData.map((patient, index) => (
-            <div
-              key={index}
-              className="bg-green-300 hover:bg-slate-800 hover:text-white p-4 rounded-xl shadow-md flex items-center gap-4 transition-all duration-500 ease-in-out">
-              <div className="bg-white rounded-full h-16 w-16 sm:h-20 sm:w-20"></div>
+        {/* Current Patient Section */}
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 text-white">
+            <h3 className="font-bold text-lg flex items-center">
+              <div className="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-2">
+                <i className="fa-solid fa-user-check text-white"></i>
+              </div>
+              Current Patient
+            </h3>
+          </div>
+          <div className="border-x border-b border-gray-100 rounded-b-xl p-5">
+            <div className="flex items-center mb-4">
+              <div className="w-16 h-16 bg-gray-100 rounded-full mr-4 flex items-center justify-center">
+                <i className="fa-solid fa-user text-gray-400 text-xl"></i>
+              </div>
               <div>
-                <h2 className="font-bold">{patient.name}</h2>
-                <p>Age: {patient.age}</p>
+                <h4 className="font-bold text-gray-800">John Doe</h4>
+                <p className="text-gray-500 text-sm">Age: 45</p>
+                <p className="text-amber-600 text-sm font-medium">Status: Monitoring Required</p>
+              </div>
+            </div>
+            <button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg px-4 py-2 transition-colors flex items-center justify-center">
+              <i className="fa-solid fa-check-circle mr-2"></i>
+              Mark as Checked
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Upcoming Appointments Section */}
+      <div className="mt-8">
+        <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
+          <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-2">
+            <i className="fa-solid fa-users text-indigo-600"></i>
+          </div>
+          Next Appointments
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {patientsData.map((patient, id) => (
+            <div
+              key={id}
+              className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div className="border border-gray-100 rounded-xl p-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i className="fa-solid fa-user text-blue-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800">{patient.patient.name}</h4>
+                    <p className="text-gray-500 text-sm">Age: {patient.patient.age}</p>
+                    <div className={`text-sm mt-1 font-medium ${
+                      patient.status === "Stable" ? "text-green-600" : 
+                      patient.status === "Monitoring Required" ? "text-amber-600" : "text-blue-600"
+                    }`}>
+                      {patient.status}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-3 py-1 transition-colors">
+                    View Details
+                  </button>
+                  <div className="text-gray-500 text-sm flex items-center">
+                    <i className="fa-regular fa-clock mr-1"></i>
+                    10:30 AM
+                  </div>
+                </div>
               </div>
             </div>
           ))}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -8,14 +9,20 @@ import PatUI from './components/PatUI'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
-    <>
-      {/* <DocUI/> */}
-      {/* <Pat_dashboard/> */}
-      <PatUI/>
-    </>
+    <BrowserRouter>
+    
+        <div className="app-container">
+          <Routes>
+          <Route path="/" element={<DocUI />} />
+          <Route path="/patients" element={<PatUI/>} />
+            
+          </Routes>
+        </div>
+  
+    </BrowserRouter>
   )
 }
 
