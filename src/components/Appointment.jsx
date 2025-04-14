@@ -1,9 +1,9 @@
 import React from 'react';
 import patientsData from '../assets/dummyData';
-
+import { useNavigate } from 'react-router-dom';
 
 function Appointment() {
-
+const navigate = useNavigate();
   // const patientData = [
   //   {
   //     name: "John Smith",
@@ -124,7 +124,13 @@ function Appointment() {
                   </div>
                 </div>
                 <div className="flex justify-between mt-4">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-3 py-1 transition-colors">
+                  <button
+                  type='button'
+                  onClick={()=>{
+                    console.log(patient.patient.id)
+                    navigate('/patients', { state: { patientId: patient.patient.id } });
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-3 py-1 transition-colors">
                     View Details
                   </button>
                   <div className="text-gray-500 text-sm flex items-center">
