@@ -1,5 +1,6 @@
 import React from "react";
 import patientsData from "../assets/dummyData";
+import user from '../assets/images/pngwing.png';
 
 function Pat_dashboard(props) {
     // Find the patient data based on the ID from props
@@ -84,7 +85,8 @@ function Pat_dashboard(props) {
                             <div className="h-24 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
                             <div className="p-5 relative">
                                 <div className="absolute -top-16 left-6 w-24 h-24 rounded-xl overflow-hidden border-4 border-white shadow-lg">
-                                    <img src="public\pngwing.png" alt="Profile Pic" className="w-full h-full object-cover" />
+                                
+                                    <img src={user} alt="Profile Pic" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="ml-28 flex justify-between items-center mb-6">
                                     <h3 className="font-bold text-2xl text-gray-800">{patient.name}</h3>
