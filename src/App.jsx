@@ -6,6 +6,8 @@ import './App.css'
 import DocUI from './components/DocUI'
 import Pat_dashboard from './components/Pat_dashboard'
 import PatUI from './components/PatUI'
+import Home from './components/Home'
+// import { Home } from 'lucide-react'
 
 
 function App() {
@@ -16,7 +18,8 @@ function App() {
     
         <div className="app-container">
           <Routes>
-          <Route path="/" element={<DocUI />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/doctors" element={<DocUI />} />
           <Route path="/patients/:patientId" element={<PatUI/>} />
             
           </Routes>
