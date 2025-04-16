@@ -267,7 +267,7 @@ function Home() {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => handleNavigation('/doctors')}
+                                onClick={() => handleNavigation('/signup')}
                                 className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
                             >
                                 Get Started
@@ -277,6 +277,7 @@ function Home() {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => handleNavigation('/schedule')}
                                 className="px-6 py-3 border border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors"
                             >
                                 Schedule Demo

@@ -1,37 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import patientsData from '../assets/dummyData';
 
-function Patients() {
+function Patients({ patients }) {
   const navigate = useNavigate();
-  // const patientData = [
-  //   {
-  //     name: "John Smith",
-  //     age: 45,
-  //     status: "Stable",
-  //     lastVisit: "Jan 10, 2025",
-  //     bloodGroup: "O+",
-  //     condition: "Hypertension"
-  //   },
-  //   {
-  //     name: "John Doe",
-  //     age: 45,
-  //     status: "Monitoring Required",
-  //     lastVisit: "Feb 15, 2025",
-  //     bloodGroup: "A+",
-  //     condition: "Diabetes"
-  //   },
-  //   {
-  //     name: "Jane Smith",
-  //     age: 45,
-  //     status: "Needs Follow-Up",
-  //     lastVisit: "Mar 20, 2025",
-  //     bloodGroup: "B-",
-  //     condition: "Arthritis"
-  //   },
-  // ];
-
-  
 
   return (
     <div className="h-full w-full p-6">
@@ -74,7 +45,7 @@ function Patients() {
 
       {/* Patient Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {patientsData.map((patient, id) => (
+        {patients.map((patient, id) => (
           <div
             key={id}
             className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
@@ -87,8 +58,8 @@ function Patients() {
                 <div className="ml-20">
                   <h3 className="font-bold text-lg text-gray-800">{patient.patient.name}</h3>
                   <div className={`text-sm font-medium ${
-                    patient.status === "Stable" ? "text-green-600" : 
-                    patient.status === "Monitoring Required" ? "text-amber-600" : "text-blue-600"
+                    patient.patient.status === "Stable" ? "text-green-600" : 
+                    patient.patient.status === "Monitoring Required" ? "text-amber-600" : "text-blue-600"
                   }`}>
                     {patient.patient.status}
                   </div>
@@ -119,7 +90,7 @@ function Patients() {
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">Condition</p>
-                      <p className="font-medium text-gray-800">{patient.prescription.diagnosis}</p>
+                      <p className="font-medium text-gray-800">{patient.prescription.diagnosis || "Initial consultation"}</p>
                     </div>
                   </div>
                   <div className="flex items-center">

@@ -1,7 +1,46 @@
 import React, { useState } from 'react';
 
-function Sidebar_doc({ setActiveSection, activeSection }) {
+function Sidebar_doc({ setActiveSection, activeSection, addNewPatient }) {
   const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    sex: 'Select',
+    bloodGroup: 'Select',
+    phone: '',
+    medicalHistory: ''
+  });
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add validation if needed
+    if (!formData.name || !formData.age || formData.sex === 'Select' || formData.bloodGroup === 'Select') {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    // Call the addNewPatient function passed from parent
+    addNewPatient(formData);
+    
+    // Reset form and close modal
+    setFormData({
+      name: '',
+      age: '',
+      sex: 'Select',
+      bloodGroup: 'Select',
+      phone: '',
+      medicalHistory: ''
+    });
+    setOpenModal(false);
+  };
   
   const menuItems = [
     { name: "Dashboard", icon: "fa-solid fa-chart-line", section: "dashboard" },
@@ -105,20 +144,40 @@ function Sidebar_doc({ setActiveSection, activeSection }) {
             </div>
             
             <div className="p-6">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-                    <input type="number" className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" />
+                    <input 
+                      type="number" 
+                      name="age"
+                      value={formData.age}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                      required
+                    />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Sex</label>
-                    <select className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select 
+                      name="sex"
+                      value={formData.sex}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                      required
+                    >
                       <option>Select</option>
                       <option>Male</option>
                       <option>Female</option>
@@ -129,7 +188,13 @@ function Sidebar_doc({ setActiveSection, activeSection }) {
                 
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
-                  <select className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                  <select 
+                    name="bloodGroup"
+                    value={formData.bloodGroup}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  >
                     <option>Select</option>
                     <option>A+</option>
                     <option>A-</option>
@@ -144,12 +209,25 @@ function Sidebar_doc({ setActiveSection, activeSection }) {
                 
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
-                  <input type="tel" className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                  />
                 </div>
                 
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Medical History</label>
-                  <textarea className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
+                  <textarea 
+                    name="medicalHistory"
+                    value={formData.medicalHistory}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" 
+                    rows="3"
+                  ></textarea>
                 </div>
                 
                 <div className="flex justify-end gap-2">

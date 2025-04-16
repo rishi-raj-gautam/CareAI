@@ -1,27 +1,9 @@
 import React from 'react';
-import patientsData from '../assets/dummyData';
 import { useNavigate } from 'react-router-dom';
 
-function Appointment() {
-const navigate = useNavigate();
-  // const patientData = [
-  //   {
-  //     name: "John Smith",
-  //     age: 45,
-  //     status: "Stable",
-  //   },
-  //   {
-  //     name: "John Doe",
-  //     age: 45,
-  //     status: "Monitoring Required",
-  //   },
-  //   {
-  //     name: "Jane Smith",
-  //     age: 45,
-  //     status: "Needs Follow-Up",
-  //   },
-  // ];
-  const totalPatients = patientsData.length;
+function Appointment({ patients }) {
+  const navigate = useNavigate();
+  const totalPatients = patients.length;
 
   return (
     <div className="h-full w-full p-6">
@@ -103,7 +85,7 @@ const navigate = useNavigate();
           Next Appointments
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {patientsData.map((patient, id) => (
+          {patients.map((patient, id) => (
             <div
               key={id}
               className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
@@ -116,10 +98,10 @@ const navigate = useNavigate();
                     <h4 className="font-bold text-gray-800">{patient.patient.name}</h4>
                     <p className="text-gray-500 text-sm">Age: {patient.patient.age}</p>
                     <div className={`text-sm mt-1 font-medium ${
-                      patient.status === "Stable" ? "text-green-600" : 
-                      patient.status === "Monitoring Required" ? "text-amber-600" : "text-blue-600"
+                      patient.patient.status === "Stable" ? "text-green-600" : 
+                      patient.patient.status === "Monitoring Required" ? "text-amber-600" : "text-blue-600"
                     }`}>
-                      {patient.status}
+                      {patient.patient.status}
                     </div>
                   </div>
                 </div>

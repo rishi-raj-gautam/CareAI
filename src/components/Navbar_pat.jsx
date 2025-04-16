@@ -1,6 +1,51 @@
-import React from 'react';
-import {Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import Cookies from 'js-cookie';
+
 function Navbar_pat() {
+  const { doctorData: contextDoctorData } = useAuth();
+  const [doctorData, setDoctorData] = useState(null);
+  
+  useEffect(() => {
+    const fetchDoctorData = async () => {
+      const doctorId = Cookies.get('doctorId');
+      
+      // If we already have doctor data from context, use it
+      if (contextDoctorData) {
+        setDoctorData(contextDoctorData);
+        return;
+      }
+      
+      // Otherwise fetch it directly (for patient view)
+      if (doctorId) {
+        try {
+          const db = getFirestore();
+          const docRef = doc(db, "doctors", doctorId);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            setDoctorData(docSnap.data());
+          }
+        } catch (error) {
+          console.error("Error fetching doctor data:", error);
+        }
+      }
+    };
+    
+    fetchDoctorData();
+  }, [contextDoctorData]);
+  
+  // Default values if doctor data isn't loaded yet
+  const doctorName = doctorData?.name || 'Doctor';
+  
+  // Get initials for avatar fallback
+  const getInitials = (name) => {
+    if (!name) return 'D';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   return (
     <div className='flex justify-between items-center px-6 py-4 bg-white shadow-md'>
       <div className='logo flex items-center'>
@@ -27,9 +72,17 @@ function Navbar_pat() {
         
         <div className='profile flex items-center gap-3 cursor-pointer'>
           <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold shadow-md">
-            R
+            {doctorData?.photoURL ? (
+              <img 
+                src={doctorData.photoURL} 
+                alt={doctorName} 
+                className="h-10 w-10 rounded-full object-cover"
+              />
+            ) : (
+              getInitials(doctorName)
+            )}
           </div>
-          <span className="font-medium text-gray-800">Dr. Ravi</span>
+          <span className="font-medium text-gray-800">Dr. {doctorName}</span>
           <i className="fa-solid fa-chevron-down text-sm text-gray-500"></i>
         </div>
       </div>
