@@ -5,19 +5,20 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 function Signup() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   // Step 1 data
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [degree, setDegree] = useState('');
-  
+
   // Step 2 data
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,21 +52,21 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    
+
     const error = validateStep2();
     if (error) {
       setError(error);
       return;
     }
-    
+
     setLoading(true);
     setError('');
-    
+
     try {
       // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
+
       // Add doctor info to Firestore
       await setDoc(doc(db, "doctors", user.uid), {
         name,
@@ -74,25 +75,38 @@ function Signup() {
         degree,
         createdAt: new Date().toISOString()
       });
-      
+
+      await axios.post('https://smartdoc-l14n.onrender.com/signup', {
+        username: name,
+        password: password,
+        email: email,
+        phoneNumber: phone,
+        degree: degree
+      });
+
       // Set doctor ID in cookie
       Cookies.set('doctorId', user.uid, { expires: 7 });
-      
+
       // Redirect to doctor dashboard
       navigate('/doctors');
     } catch (error) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          setError('Email is already in use. Please login instead.');
-          break;
-        case 'auth/invalid-email':
-          setError('Invalid email address format.');
-          break;
-        case 'auth/weak-password':
-          setError('Password is too weak. Use at least 6 characters.');
-          break;
-        default:
-          setError('Failed to create account. Please try again.');
+      if (error.code?.startsWith('auth/')) {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            setError('Email is already in use. Please login instead.');
+            break;
+          case 'auth/invalid-email':
+            setError('Invalid email address format.');
+            break;
+          case 'auth/weak-password':
+            setError('Password is too weak. Use at least 6 characters.');
+            break;
+          default:
+            setError('Failed to create account. Please try again.');
+        }
+      } else {
+        setError('Something went wrong while saving data externally.');
+        console.error('External API Error:', error);
       }
     } finally {
       setLoading(false);
@@ -110,7 +124,7 @@ function Signup() {
             Step {step} of 2
           </p>
         </div>
-        
+
         {step === 1 ? (
           // Step 1: Doctor Information
           <form className="mt-8 space-y-6">
@@ -247,7 +261,7 @@ function Signup() {
             </div>
           </form>
         )}
-        
+
         <div className="text-center mt-4">
           <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
             Already have an account? Log in
